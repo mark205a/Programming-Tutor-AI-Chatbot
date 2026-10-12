@@ -20,6 +20,13 @@ function App() {
       return;
     }
 
+    const history = messages
+    .slice(1)
+    .slice(-12)
+    .map((message) => ({
+      role: message.role,
+      text: message.text,
+    }));
 
     setMessages((previousMessages) => [
       ...previousMessages,
@@ -36,7 +43,7 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ question, history }),
       }
     );
 
@@ -65,13 +72,37 @@ function App() {
    }
   }
 
+  function handleClearChat(){
+
+    if (isLoading) {
+      return;
+    }
+
+    setMessages([
+      {
+        role: "assistant",
+        text: "Hello! I'm your AI Learning Tutor. Ask me a programming question to get started.",
+      }
+    ]);
+
+    setInput("");
+
+  }
 
   return (
     <div className="App">
       <header className="chat-header">
         <div className="avatar">AI</div>
-        <div>AI Learning Tutor</div>
+        <h1>AI Learning Tutor</h1>
         <p>Your programming learning assistant</p>
+        <button
+          type="button"
+          onClick={handleClearChat}
+          disabled={isLoading}
+        >
+          Clear Chat
+        </button>
+        <div className="clr"></div>
       </header>
       <section className="chat-messages">
         {messages.map((message, index) => (
@@ -111,6 +142,14 @@ function App() {
           onChange={(event) => setInput(event.target.value)}
           placeholder="Ask a programming question..."
           aria-label="Ask a programming question"
+          disabled={isLoading}
+          rows={2}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" && !event.shiftKey) {
+              event.preventDefault();
+              event.currentTarget.form?.requestSubmit();
+            }
+          }}
         />
         <button type="submit" disabled={isLoading}>Send</button>
 

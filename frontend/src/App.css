@@ -15,8 +15,6 @@ body{
   margin: 20px auto;
   padding:20px;
   border-radius: 10px;
-  height: 90vh;
-
 }
 .app {
   width: min(760px, 95%);
@@ -29,11 +27,11 @@ body{
 }
 
 .chat-header {
-  display: flex;
   align-items: center;
   gap: 14px;
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e7eb;
+  display: block;
 }
 
 .avatar {
@@ -45,17 +43,21 @@ body{
   background: #315bb5;
   color: white;
   font-weight: bold;
+  float:left;
+  margin-right: 10px;
 }
 
 .chat-header h1 {
   margin: 0;
-  font-size: 21px;
+  font-size: 18px;
 }
 
 .chat-header p {
   margin: 5px 0 0;
   color: #64748b;
-  font-size: 14px;
+  font-size: 12px;
+  display: block;
+  float:left;
 }
 
 .chat-messages {
@@ -64,9 +66,9 @@ body{
   flex-direction: column;
   gap: 20px;
   padding: 24px 0;
-
-  min-height: 70vh;
   overflow-y: auto;
+  min-height: 60vh;
+  max-height: 60vh;
 }
 
 .message {
@@ -101,12 +103,12 @@ body{
 }
 
 .message.user .message-bubble {
-  background: #315bb5;
+  background: #627bb0;
   color: white;
 }
 
 .message.assistant .message-bubble {
-  background: #f1f5f9;
+  background: #90b8e3;
   color: #172033;
 }
 
@@ -146,6 +148,57 @@ body{
 .chat-input input:focus-visible {
   outline: 3px solid #93c5fd;
   outline-offset: 2px;
+}
+
+
+.chat-input button:disabled,
+.chat-input input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.message-bubble {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.chat-header button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #315BB5;
+  cursor: pointer;
+  float: right;
+  color:#ffffff;
+  
+}
+
+.chat-header button:hover{
+  background-color: #172033;
+}
+
+.clr{ 
+  clear:both;
+}
+
+.chat-header button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chat-input textarea {
+  flex: 1;
+  min-width: 0;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.chat-input textarea:focus {
+  outline: 2px solid #7c8cff;
+  outline-offset: 1px;
 }
 
 @media (max-width: 480px) {
